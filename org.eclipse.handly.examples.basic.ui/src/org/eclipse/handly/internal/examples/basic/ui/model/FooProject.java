@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 1C LLC.
+ * Copyright (c) 2014, 2015 1C-Soft LLC and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.handly.examples.basic.ui.model.IFooProject;
 import org.eclipse.handly.internal.examples.basic.ui.Activator;
 import org.eclipse.handly.model.IHandle;
@@ -72,23 +73,24 @@ public class FooProject
         if (!project.exists())
             throw new CoreException(Activator.createErrorStatus(
                 MessageFormat.format(
-                    "Project ''{0}'' does not exist in workspace", name), null));
+                    "Project ''{0}'' does not exist in workspace", name),
+                null));
 
         if (!project.isOpen())
-            throw new CoreException(
-                Activator.createErrorStatus(
-                    MessageFormat.format("Project ''{0}'' is not open", name),
-                    null));
+            throw new CoreException(Activator.createErrorStatus(
+                MessageFormat.format("Project ''{0}'' is not open", name),
+                null));
 
         if (!project.hasNature(NATURE_ID))
-            throw new CoreException(
-                Activator.createErrorStatus(MessageFormat.format(
-                    "Project ''{0}'' does not have the Foo nature", name), null));
+            throw new CoreException(Activator.createErrorStatus(
+                MessageFormat.format(
+                    "Project ''{0}'' does not have the Foo nature", name),
+                null));
     }
 
     @Override
-    protected void buildStructure(Body body, Map<IHandle, Body> newElements)
-        throws CoreException
+    protected void buildStructure(Body body, Map<IHandle, Body> newElements,
+        IProgressMonitor monitor) throws CoreException
     {
     }
 }
