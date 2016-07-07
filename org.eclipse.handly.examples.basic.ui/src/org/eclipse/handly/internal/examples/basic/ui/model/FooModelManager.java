@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 1C LLC.
+ * Copyright (c) 2014, 2016 1C-Soft LLC and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,7 +15,7 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.handly.examples.basic.ui.model.IFooModel;
 import org.eclipse.handly.internal.examples.basic.ui.Activator;
-import org.eclipse.handly.model.impl.HandleManager;
+import org.eclipse.handly.model.impl.ElementManager;
 
 /**
  * The manager for the Foo Model. 
@@ -31,12 +31,12 @@ public class FooModelManager
     public static final FooModelManager INSTANCE = new FooModelManager();
 
     private IFooModel fooModel;
-    private HandleManager handleManager;
+    private ElementManager elementManager;
 
     public void startup() throws Exception
     {
         fooModel = new FooModel();
-        handleManager = new HandleManager(new FooModelCache());
+        elementManager = new ElementManager(new FooModelCache());
         fooModel.getWorkspace().addResourceChangeListener(this,
             IResourceChangeEvent.POST_CHANGE);
     }
@@ -44,7 +44,7 @@ public class FooModelManager
     public void shutdown() throws Exception
     {
         fooModel.getWorkspace().removeResourceChangeListener(this);
-        handleManager = null;
+        elementManager = null;
         fooModel = null;
     }
 
@@ -71,11 +71,11 @@ public class FooModelManager
         return fooModel;
     }
 
-    public HandleManager getHandleManager()
+    public ElementManager getElementManager()
     {
-        if (handleManager == null)
+        if (elementManager == null)
             throw new IllegalStateException();
-        return handleManager;
+        return elementManager;
     }
 
     private FooModelManager()

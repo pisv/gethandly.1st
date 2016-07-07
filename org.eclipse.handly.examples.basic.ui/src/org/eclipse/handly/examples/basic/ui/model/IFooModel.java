@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 1C LLC.
+ * Copyright (c) 2014, 2016 1C-Soft LLC and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@ package org.eclipse.handly.examples.basic.ui.model;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.handly.model.IHandle;
+import org.eclipse.handly.model.IElementExtension;
 
 /**
  * Represents the root Foo element corresponding to the workspace. 
@@ -21,7 +21,7 @@ import org.eclipse.handly.model.IHandle;
  * as <em>the</em> Foo Model element.
  */
 public interface IFooModel
-    extends IHandle
+    extends IElementExtension
 {
     /**
      * Returns the Foo project with the given name. The given name must be 

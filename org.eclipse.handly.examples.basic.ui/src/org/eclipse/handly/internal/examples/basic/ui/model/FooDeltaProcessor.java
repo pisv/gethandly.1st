@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 1C LLC.
+ * Copyright (c) 2014, 2016 1C-Soft LLC and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,9 +21,10 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.handly.examples.basic.ui.model.FooModelCore;
 import org.eclipse.handly.examples.basic.ui.model.IFooProject;
-import org.eclipse.handly.model.IHandle;
+import org.eclipse.handly.model.Elements;
+import org.eclipse.handly.model.IElement;
 import org.eclipse.handly.model.impl.Body;
-import org.eclipse.handly.model.impl.Handle;
+import org.eclipse.handly.model.impl.Element;
 
 /**
  * This class is used by the <code>FooModelManager</code> to process 
@@ -145,7 +146,7 @@ class FooDeltaProcessor
         if (isFooProject)
         {
             Body parentBody = findBody(fooProject.getParent());
-            IHandle[] children = parentBody.getChildren();
+            IElement[] children = parentBody.getChildren();
             if (!Arrays.asList(children).contains(fooProject))
                 addToModel(fooProject); // in case the project was removed then added then changed
 
@@ -171,29 +172,29 @@ class FooDeltaProcessor
         return oldFooProjectNames.contains(project.getName());
     }
 
-    private void addToModel(IHandle element)
+    private void addToModel(IElement element)
     {
-        Body parentBody = findBody(element.getParent());
+        Body parentBody = findBody(Elements.getParent(element));
         if (parentBody != null)
             parentBody.addChild(element);
         close(element);
     }
 
-    private void removeFromModel(IHandle element)
+    private void removeFromModel(IElement element)
     {
-        Body parentBody = findBody(element.getParent());
+        Body parentBody = findBody(Elements.getParent(element));
         if (parentBody != null)
             parentBody.removeChild(element);
         close(element);
     }
 
-    private static Body findBody(IHandle element)
+    private static Body findBody(IElement element)
     {
-        return ((Handle)element).findBody();
+        return (Body)((Element)element).hFindBody();
     }
 
-    private static void close(IHandle element)
+    private static void close(IElement element)
     {
-        ((Handle)element).close();
+        ((Element)element).hClose();
     }
 }

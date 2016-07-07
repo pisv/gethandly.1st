@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2014 1C LLC.
+ * Copyright (c) 2014, 2016 1C-Soft LLC and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,18 +12,24 @@ package org.eclipse.handly.examples.basic.ui.model;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.handly.internal.examples.basic.ui.model.FooProjectNature;
-import org.eclipse.handly.model.IHandle;
+import org.eclipse.handly.model.IElementExtension;
 
 /**
  * Represents a Foo project.
  */
 public interface IFooProject
-    extends IHandle
+    extends IElementExtension
 {
     /**
      * Foo project nature id.
      */
     String NATURE_ID = FooProjectNature.ID;
+
+    @Override
+    default IFooModel getParent()
+    {
+        return (IFooModel)IElementExtension.super.getParent();
+    }
 
     /**
      * Returns the <code>IProject</code> on which this <code>IFooProject</code>
