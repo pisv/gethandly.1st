@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.handly.context.IContext;
 import org.eclipse.handly.examples.basic.ui.model.IFooProject;
-import org.eclipse.handly.model.impl.Element;
+import org.eclipse.handly.model.impl.support.Element;
 
 /**
  * Represents a Foo project.
@@ -50,20 +50,20 @@ public class FooProject
     }
 
     @Override
-    public IResource hResource()
+    public IResource getResource_()
     {
         return project;
     }
 
     @Override
-	public void hValidateExistence(IContext context) throws CoreException
+	public void validateExistence_(IContext context) throws CoreException
     {
         if (!project.hasNature(NATURE_ID))
-            throw hDoesNotExistException();
+            throw newDoesNotExistException_();
     }
 
     @Override
-	public void hBuildStructure(IContext context, IProgressMonitor monitor)
+	public void buildStructure_(IContext context, IProgressMonitor monitor)
         throws CoreException
     {
     }
